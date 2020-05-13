@@ -12,15 +12,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="80dp"
         android:clickable="true"
         android:fontFamily="@font/upcjl"
-        android:text="Forgot User ID ?"
+        android:text="@string/ForgotUserIDText"
         android:textColor="#CDCC00"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LogInButton" />
+        app:layout_constraintTop_toBottomOf="@+id/LogInButton"
+        android:focusable="true" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -34,7 +34,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/eternity_logo" />
+        app:srcCompat="@drawable/eternity_logo"
+        android:contentDescription="@string/ToDoText" />
 
     <EditText
         android:id="@+id/loginEmail"
@@ -45,7 +46,7 @@
         android:layout_marginEnd="50dp"
         android:ems="10"
         android:fontFamily="@font/upcjl"
-        android:hint="Email"
+        android:hint="@string/EmailLogIn"
         android:inputType="textEmailAddress"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="#000"
@@ -53,7 +54,8 @@
         android:typeface="normal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        android:autofillHints="" />
 
     <ProgressBar
         android:id="@+id/loginProgressBar"
@@ -77,13 +79,14 @@
         android:layout_marginRight="50dp"
         android:ems="10"
         android:fontFamily="@font/upcjl"
-        android:hint="Password"
+        android:hint="@string/PasswordLogIn"
         android:inputType="textPassword"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginEmail" />
+        app:layout_constraintTop_toBottomOf="@+id/loginEmail"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/LogInButton"
@@ -96,14 +99,15 @@
         android:background="#CDCC00"
         android:clickable="true"
         android:fontFamily="@font/upcjl"
-        android:text="Sign In"
+        android:text="@string/LogInButtonText"
         android:textAllCaps="false"
         android:textColor="#000"
         android:textSize="32sp"
         android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginPassword" />
+        app:layout_constraintTop_toBottomOf="@+id/loginPassword"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/textView4"
@@ -111,14 +115,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
         android:clickable="true"
         android:fontFamily="@font/upcjl"
-        android:text="Forgot Password ?"
+        android:text="@string/ForgotPasswordText"
         android:textColor="#CDCC00"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LogInButton" />
+        app:layout_constraintTop_toBottomOf="@+id/LogInButton"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/textView5"
@@ -129,7 +133,7 @@
         android:layout_marginTop="80dp"
         android:layout_marginEnd="20dp"
         android:layout_marginRight="20dp"
-        android:text="|"
+        android:text="@string/LogInScreenSeparator"
         android:textColor="#CDCC00"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/textView4"
@@ -141,10 +145,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
-        android:layout_marginLeft="100dp"
         android:layout_marginTop="100dp"
         android:fontFamily="@font/upcjl"
-        android:text="New User ?"
+        android:text="@string/NewUserText"
         android:textColor="#CDCC00"
         android:textSize="30sp"
         android:textStyle="italic"
@@ -160,21 +163,21 @@
         android:background="#CDCC00"
         android:clickable="true"
         android:fontFamily="@font/upcjl"
-        android:text="Sign Up"
+        android:text="@string/SignUpButtonText"
         android:textAllCaps="false"
         android:textSize="32sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        android:focusable="true" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
         android:layout_marginTop="50dp"
         android:fontFamily="@font/upcjl"
-        android:text="© Eternity Solutions Corp. All Rights Reserved"
+        android:text="@string/CopyrightText"
         android:textColor="#CDCC00"
         android:textSize="26sp"
         android:textStyle="italic"
@@ -190,7 +193,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:visibility="visible" />
+        tools:visibility="visible"
+        tools:ignore="UnknownIdInLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

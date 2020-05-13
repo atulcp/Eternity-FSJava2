@@ -14,7 +14,7 @@
         android:layout_marginEnd="40dp"
         android:fontFamily="@font/upcjl"
         android:onClick="goToLogIn"
-        android:text="Already Signed Up ? Click here to Sign In."
+        android:text="@string/AlreadySignedUpText"
         android:textColor="#000"
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,15 +32,13 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/upcjl"
-        android:text="© Eternity Solutions Corp. All Rights Reserved"
+        android:text="@string/CopyrightText"
         android:textColor="#CDCC00"
         android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUpButton"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="20dp" />
+        app:layout_constraintTop_toBottomOf="@+id/signUpButton" />
 
     <Button
         android:id="@+id/signUpButton"
@@ -54,14 +52,15 @@
         android:clickable="true"
         android:fontFamily="@font/upcjl"
         android:onClick="completeSignUp"
-        android:text="Sign Up"
+        android:text="@string/SignUpButtonText"
         android:textAllCaps="false"
         android:textColor="#000"
         android:textSize="32sp"
         android:typeface="serif"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
+        app:layout_constraintTop_toBottomOf="@+id/password"
+        android:focusable="true" />
 
     <EditText
         android:id="@+id/password"
@@ -72,13 +71,14 @@
         android:layout_marginEnd="50dp"
         android:ems="10"
         android:fontFamily="@font/upcjl"
-        android:hint="Password"
+        android:hint="@string/PasswordSignUp"
         android:inputType="textPassword"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Email" />
+        app:layout_constraintTop_toBottomOf="@+id/Email"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/Email"
@@ -89,7 +89,7 @@
         android:layout_marginEnd="50dp"
         android:ems="10"
         android:fontFamily="@font/upcjl"
-        android:hint="Email"
+        android:hint="@string/EmailSignUp"
         android:inputType="textEmailAddress"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2"
         android:textColor="#000"
@@ -98,7 +98,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phoneNumber" />
+        app:layout_constraintTop_toBottomOf="@+id/phoneNumber"
+        android:autofillHints="" />
 
     <ImageView
         android:id="@+id/imageView2"
@@ -122,12 +123,13 @@
         android:layout_marginEnd="50dp"
         android:ems="10"
         android:fontFamily="@font/upcjl"
-        android:hint="Full Name"
+        android:hint="@string/SignUpFullNameText"
         android:inputType="textPersonName"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/phoneNumber"
@@ -138,12 +140,13 @@
         android:layout_marginEnd="50dp"
         android:ems="10"
         android:fontFamily="@font/upcjl"
-        android:hint="Phone"
+        android:hint="@string/SignUpPhoneNumberText"
         android:inputType="phone"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fullName" />
+        app:layout_constraintTop_toBottomOf="@+id/fullName"
+        android:autofillHints="" />
 
     <ProgressBar
         android:id="@+id/progressBar"

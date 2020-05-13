@@ -1,4 +1,22 @@
 <resources>
     <string name="app_name">Eternity-FSJava2</string>
     <string name="logo">logo</string>
+    <string name="EmailLogIn">Email</string>
+    <string name="EmailSignUp">Email</string>
+    <string name="PasswordLogIn">Password</string>
+    <string name="PasswordSignUp">Password</string>
+    <string name="LogInButtonText">Sign In</string>
+    <string name="ForgotPasswordText">Forgot Password ?</string>
+    <string name="LogInScreenSeparator">|</string>
+    <string name="NewUserText">New User ?</string>
+    <string name="SignUpButtonText">Sign Up</string>
+    <string name="CopyrightText">© Eternity Solutions Corp. All Rights Reserved</string>
+    <string name="ForgotUserIDText">Forgot User ID ?</string>
+    <string name="ToDoText">TODO</string>
+    <string name="WelcomeToEternityText">Welcome to Eternity Solutions</string>
+    <string name="NoneText">None</string>
+    <string name="LogOutButtonText">Log Out</string>
+    <string name="AlreadySignedUpText">Already Signed Up ? Click here to Sign In.</string>
+    <string name="SignUpFullNameText">Full Name</string>
+    <string name="SignUpPhoneNumberText">Phone</string>
 </resources>
