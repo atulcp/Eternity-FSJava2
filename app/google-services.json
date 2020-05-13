@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "849738957672",
+    "firebase_url": "https://eternity-fsjava2.firebaseio.com",
+    "project_id": "eternity-fsjava2",
+    "storage_bucket": "eternity-fsjava2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:849738957672:android:fe2353cb9f77cd0e3b0cdd",
+        "android_client_info": {
+          "package_name": "com.example.eternity_fsjava2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "849738957672-077lmtnpq4urfa4uhucccab7546mb2ue.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj1V55wIGVVBqBT2pIzvFrKG7plWhGcgU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "849738957672-077lmtnpq4urfa4uhucccab7546mb2ue.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
