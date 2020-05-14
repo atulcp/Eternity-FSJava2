@@ -91,6 +91,13 @@ public class SignUp extends AppCompatActivity {
             return;
         }
 
+        // Validation 4: If the Full Name is blank
+
+        if(TextUtils.isEmpty(userFullName)){
+            mFullName.setError("Name is required");
+            return;
+        }
+
         //Create the user
 
         mProgressBar.setVisibility(View.VISIBLE);
