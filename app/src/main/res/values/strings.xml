@@ -19,4 +19,11 @@
     <string name="AlreadySignedUpText">Already Signed Up ? Click here to Sign In.</string>
     <string name="SignUpFullNameText">Full Name</string>
     <string name="SignUpPhoneNumberText">Phone</string>
+    <string name="ProfilePicture">Profile Picture</string>
+    <string name="ProfileNameTag">Name :</string>
+    <string name="ProfileNameValue">Name</string>
+    <string name="ProfileEmailValue">Email</string>
+    <string name="ProfileEmailTag">Email :</string>
+    <string name="ProfilePhoneTag">Phone :</string>
+    <string name="ProfilePhoneValue">Phone</string>
 </resources>
