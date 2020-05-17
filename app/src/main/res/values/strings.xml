@@ -26,4 +26,6 @@
     <string name="ProfileEmailTag">Email :</string>
     <string name="ProfilePhoneTag">Phone :</string>
     <string name="ProfilePhoneValue">Phone</string>
+    <string name="verifyAccountButtonText">Verify Account</string>
+    <string name="verifyAccountMessageText">This account is not verified</string>
 </resources>

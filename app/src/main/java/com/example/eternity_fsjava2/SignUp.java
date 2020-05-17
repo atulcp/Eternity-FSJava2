@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
@@ -108,10 +109,33 @@ public class SignUp extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
 
                         mProgressBar.setVisibility(View.GONE);
+
                         String UserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
                         Toast.makeText(SignUp.this, "User Created...", Toast.LENGTH_SHORT).show();
                         Log.d("ACP", "User Created....");
 
+                        //15-May-2020: Send Email verification link
+
+                        FirebaseUser fuser = mAuth.getCurrentUser();
+
+                        fuser.sendEmailVerification().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+
+                                Toast.makeText(SignUp.this, "Email Verification notification sent...", Toast.LENGTH_SHORT).show();
+                                Log.d("ACP", "Email Verification notification sent...");
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+
+                                Toast.makeText(SignUp.this, "Failure sending email verification link...."+e.toString(), Toast.LENGTH_SHORT).show();
+                                Log.d("ACP", "Failure sending email verification link...."+e.toString());
+                            }
+                        });
+
+
+                        // Store the profile attributes in the database
                         Map<String, Object> profile = new HashMap<>();
 
                         profile.put(KEY_NAME, userFullName);
