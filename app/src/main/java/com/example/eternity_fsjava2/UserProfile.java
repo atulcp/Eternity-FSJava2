@@ -27,22 +27,26 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 
 import java.util.Objects;
 
-public class MainActivity extends AppCompatActivity {
+public class UserProfile extends AppCompatActivity {
 
     private static final String KEY_NAME = "UserFullName";
-
+    private static final String KEY_EMAIL = "UserEmail";
+    private static final String KEY_PHONE = "UserPhoneNumber";
 
     private TextView mFullName;
+    private TextView mEmail;
+    private TextView mPhone;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_user_profile);
 
         mFullName = findViewById(R.id.ProfileNameValue);
-
+        mEmail = findViewById(R.id.ProfileEmailValue);
+        mPhone = findViewById(R.id.ProfilePhoneValue);
 
         TextView mVerifyAccountMessage = findViewById(R.id.verificationMessage);
         Button mVerifyAccountButton = findViewById(R.id.verifyAccountButton);
@@ -58,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
             mVerifyAccountMessage.setVisibility(View.VISIBLE);
             mVerifyAccountButton.setVisibility(View.VISIBLE);
             mFullName.setVisibility(View.GONE);
-
+            mEmail.setVisibility(View.GONE);
+            mPhone.setVisibility(View.GONE);
         }
         else{
             DocumentReference documentReference = mStore.collection("Users").document(userID);
@@ -67,8 +72,9 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                     assert documentSnapshot != null;
+                    mPhone.setText(documentSnapshot.getString(KEY_PHONE));
                     mFullName.setText(documentSnapshot.getString(KEY_NAME));
-
+                    mEmail.setText(documentSnapshot.getString(KEY_EMAIL));
                 }
             });
         }
@@ -114,13 +120,6 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void signOut(View view){
-
-        FirebaseAuth.getInstance().signOut();
-        startActivity(new Intent(getApplicationContext(), LogIn.class));
-
-    }
-
     public void verifyAccount(View view) {
 
         FirebaseUser fuser = mAuth.getCurrentUser();
@@ -130,24 +129,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
 
-                Toast.makeText(MainActivity.this, "Email Verification notification sent...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserProfile.this, "Email Verification notification sent...", Toast.LENGTH_SHORT).show();
                 Log.d("ACP", "Email Verification notification sent...");
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
 
-                Toast.makeText(MainActivity.this, "Failure sending email verification link...."+e.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(UserProfile.this, "Failure sending email verification link...."+e.toString(), Toast.LENGTH_SHORT).show();
                 Log.d("ACP", "Failure sending email verification link...."+e.toString());
             }
         });
-    }
-
-    //19 May 2020
-
-    public void setAndTrackHabits(View view) {
-
-        startActivity(new Intent(getApplicationContext(), SetAndTrackHabits.class));
-
     }
 }

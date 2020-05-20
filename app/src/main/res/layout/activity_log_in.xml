@@ -7,21 +7,6 @@
     android:background="@drawable/login_background2"
     tools:context=".LogIn">
 
-    <TextView
-        android:id="@+id/ForgotUserIDText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="80dp"
-        android:clickable="true"
-        android:fontFamily="@font/upcjl"
-        android:text="@string/ForgotUserIDText"
-        android:textColor="#CDCC00"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/LogInButton"
-        android:focusable="true" />
-
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="209dp"
@@ -114,8 +99,8 @@
         android:id="@+id/ForgotPasswordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="28dp"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/upcjl"
@@ -127,18 +112,32 @@
         app:layout_constraintTop_toBottomOf="@+id/LogInButton" />
 
     <TextView
+        android:id="@+id/ForgotUserIDText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="48dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/upcjl"
+        android:text="@string/ForgotUserIDText"
+        android:textColor="#CDCC00"
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LogInButton" />
+
+    <TextView
         android:id="@+id/TextSeparator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginRight="20dp"
         android:text="@string/LogInScreenSeparator"
         android:textColor="#CDCC00"
         android:textSize="30sp"
         app:layout_constraintEnd_toStartOf="@+id/ForgotPasswordText"
+        app:layout_constraintHorizontal_bias="0.181"
         app:layout_constraintStart_toEndOf="@+id/ForgotUserIDText"
         app:layout_constraintTop_toBottomOf="@+id/LogInButton" />
 
@@ -146,8 +145,8 @@
         android:id="@+id/TextNewUser"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="100dp"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="56dp"
         android:fontFamily="@font/upcjl"
         android:text="@string/NewUserText"
         android:textColor="#CDCC00"
@@ -158,10 +157,10 @@
 
     <Button
         android:id="@+id/signUpButton"
-        android:layout_width="110dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="75dp"
+        android:layout_width="118dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="68dp"
         android:background="#CDCC00"
         android:clickable="true"
         android:focusable="true"
@@ -175,14 +174,15 @@
 
     <TextView
         android:id="@+id/TextCopyright"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="330dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
         android:fontFamily="@font/upcjl"
         android:text="@string/CopyrightText"
+        android:textAlignment="center"
         android:textColor="#CDCC00"
-        android:textSize="26sp"
+        android:textSize="24sp"
         android:textStyle="italic"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUpButton" />

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item android:id="@+id/logOutButton"
+        android:title="@string/LogOutButtonText"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/myProfile"
+        android:title="@string/MyProfileText"
+        app:showAsAction="never"/>
+
+    <item android:id="@+id/myHome"
+        android:title="@string/MainPage"
+        app:showAsAction="never"/>
+
+</menu>

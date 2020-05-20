@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Eternity-FSJava2</string>
+    <string name="app_name">Eternity Studio</string>
     <string name="logo">logo</string>
     <string name="EmailLogIn">Email</string>
     <string name="EmailSignUp">Email</string>
@@ -14,7 +14,6 @@
     <string name="ForgotUserIDText">Forgot User ID ?</string>
     <string name="ToDoText">TODO</string>
     <string name="WelcomeToEternityText">Welcome to Eternity Solutions</string>
-    <string name="NoneText">None</string>
     <string name="LogOutButtonText">Log Out</string>
     <string name="AlreadySignedUpText">Already Signed Up ? Click here to Sign In.</string>
     <string name="SignUpFullNameText">Full Name</string>
@@ -28,4 +27,13 @@
     <string name="ProfilePhoneValue">Phone</string>
     <string name="verifyAccountButtonText">Verify Account</string>
     <string name="verifyAccountMessageText">This account is not verified</string>
+    <string name="MyProfileText">My Profile</string>
+    <string name="WelcomeText">Welcome</string>
+    <string name="ExclamationText">!</string>
+    <string name="ThingsToDoText">What would you like to accomplish today ?</string>
+    <string name="ActionButtonSetAndTrackHabitText">Set and Track a Habit</string>
+    <string name="MyHabitsText">My Habits</string>
+    <string name="HabitNameHintText">Enter HABIT Name here</string>
+    <string name="SetHabitButtonText">Set Habit</string>
+    <string name="MainPage">My Home</string>
 </resources>

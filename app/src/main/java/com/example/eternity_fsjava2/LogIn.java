@@ -43,6 +43,7 @@ public class LogIn extends AppCompatActivity {
 
     }
 
+
     //When the Sign Up button is clicked
 
     public void goToSignUp(View view) {
@@ -56,7 +57,7 @@ public class LogIn extends AppCompatActivity {
 
     // Capture email and password provided in the view
 
-        String email = mEmail.getText().toString();
+        final String email = mEmail.getText().toString();
         String password = mPassword.getText().toString();
 
     // Perform Data Validations:
@@ -84,20 +85,21 @@ public class LogIn extends AppCompatActivity {
         }
 
     // Sign in the user
+        //19 May 2020 - added email in the Log and Toast messages
 
         mProgressbar.setVisibility(View.VISIBLE);
         mAuth.signInWithEmailAndPassword(email,password).addOnSuccessListener(new OnSuccessListener<AuthResult>() {
         @Override
         public void onSuccess(AuthResult authResult) {
             mProgressbar.setVisibility(View.GONE);
-            Toast.makeText(LogIn.this, "User Signed in....", Toast.LENGTH_SHORT).show();
-            Log.d("ACP", "User signed in....");
+            Toast.makeText(LogIn.this, "User Signed in...."+ email, Toast.LENGTH_SHORT).show();
+            Log.d("ACP", "User signed in...."+email);
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
         }
         }).addOnFailureListener(new OnFailureListener() {
         @Override
         public void onFailure(@NonNull Exception e) {
-            Toast.makeText(LogIn.this, "Error signing in...." +e.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(LogIn.this, "Error signing in...." +email+"..."+e.toString(), Toast.LENGTH_SHORT).show();
             Log.d("ACP", "Error signing in...."+e.toString());
         }
         });
