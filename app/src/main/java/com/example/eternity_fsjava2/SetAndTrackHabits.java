@@ -24,6 +24,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.SetOptions;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -32,15 +33,14 @@ import java.util.Objects;
 public class SetAndTrackHabits extends AppCompatActivity {
 
     private static final String KEY_NAME = "UserFullName";
-    private static final String KEY_USER_ID = "UserID";
 
-    private static final String KEY_HABIT_NAME = "HabitName";
-
+    private static final String KEY_HABIT_NAME = "HabitName ";
 
     private TextView mFullName;
     private EditText mHabitName;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
+    private int habitNum = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,20 +130,31 @@ public class SetAndTrackHabits extends AppCompatActivity {
         // Check if the current user is logged in and then save the Habit Name in the database
 
         final String UserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+        final String userEmail = mAuth.getCurrentUser().getEmail();
+
+
+        //22-May-2020: Create a Habit Index document to store the Number of Habits
+
+        //int habitIndex;
+
+        //final Map<String, Integer> HabitIndex = new HashMap<>();
+
+
+       // mStore.collection("HabitIndex").document(UserID)
 
         final Map<String, Object> userHabit = new HashMap<>();
 
-        userHabit.put(KEY_USER_ID, UserID);
-        userHabit.put(KEY_HABIT_NAME, userHabitName);
+
+        habitNum++;
+        userHabit.put(KEY_HABIT_NAME+ habitNum, userHabitName);
 
 
-
-        mStore.collection("Habits").document().set(userHabit)
+        mStore.collection("Habits").document(UserID).set(userHabit, SetOptions.merge())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(SetAndTrackHabits.this, "User HABIT Saved...", Toast.LENGTH_SHORT).show();
-                        Log.d("ACP", "User HABIT Saved for user..."+ userHabit.get(KEY_USER_ID) + " Habit Name..." + userHabit.get(KEY_HABIT_NAME));
+                        Log.d("ACP", "User HABIT Saved for user..."+ userEmail + " Habit Name..." + userHabit.get(KEY_HABIT_NAME+habitNum));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
