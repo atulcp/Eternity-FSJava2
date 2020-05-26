@@ -40,7 +40,7 @@ public class SetAndTrackHabits extends AppCompatActivity {
     private EditText mHabitName;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
-    private int habitNum = 0;
+    private int habitNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,20 +133,44 @@ public class SetAndTrackHabits extends AppCompatActivity {
         final String userEmail = mAuth.getCurrentUser().getEmail();
 
 
-        //22-May-2020: Create a Habit Index document to store the Number of Habits
+        //24 May 2020 - Adding an index to increment the Habit count
 
-        //int habitIndex;
+//        DocumentReference documentReference = mStore.collection("Habits").document(UserID);
+//
+//        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
+//            @Override
+//            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
+//                if(e != null) {
+//
+//                    Log.d("ACP", "Error Listening..."+e.toString());
+//                    return;
+//                }
+//
+//                int HabitListSize = Objects.requireNonNull(documentSnapshot.getData()).size();
+//
+//                if (HabitListSize > 0){
+//
+//                    habitNum ++;
+//
+//                }else {
+//                    habitNum = 1;
+//                }
+//            }
+//        });
 
-        //final Map<String, Integer> HabitIndex = new HashMap<>();
 
 
-       // mStore.collection("HabitIndex").document(UserID)
 
         final Map<String, Object> userHabit = new HashMap<>();
 
 
-        habitNum++;
+
+            Log.d("ACP", "Habit Size is now 1: "+userHabit.size());
+            Log.d("ACP", "Habit Number is now1: "+ habitNum);
+
+
         userHabit.put(KEY_HABIT_NAME+ habitNum, userHabitName);
+
 
 
         mStore.collection("Habits").document(UserID).set(userHabit, SetOptions.merge())
@@ -154,7 +178,7 @@ public class SetAndTrackHabits extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(SetAndTrackHabits.this, "User HABIT Saved...", Toast.LENGTH_SHORT).show();
-                        Log.d("ACP", "User HABIT Saved for user..."+ userEmail + " Habit Name..." + userHabit.get(KEY_HABIT_NAME+habitNum));
+                        Log.d("ACP", "User HABIT Saved for user..."+ userEmail + " Habit Name..." + userHabit.get(KEY_HABIT_NAME+ habitNum));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -163,6 +187,10 @@ public class SetAndTrackHabits extends AppCompatActivity {
                 Log.d("ACP", "Failure...."+e.toString());
             }
         });
+
+//        habitNum = habitNum+1;
+        Log.d("ACP", "Habit Number is now2: "+ habitNum);
+        Log.d("ACP", "Habit Size is now2: "+userHabit.size());
 
     }
 }
