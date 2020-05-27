@@ -16,8 +16,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Timestamp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -26,6 +29,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.SetOptions;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -35,6 +39,8 @@ public class SetAndTrackHabits extends AppCompatActivity {
     private static final String KEY_NAME = "UserFullName";
 
     private static final String KEY_HABIT_NAME = "HabitName ";
+    private static final String KEY_HABIT_NUMBER = "HabitNumber ";
+    private static final String KEY_HABIT_DETAIL = "HabitDetail ";
 
     private TextView mFullName;
     private EditText mHabitName;
@@ -133,44 +139,49 @@ public class SetAndTrackHabits extends AppCompatActivity {
         final String userEmail = mAuth.getCurrentUser().getEmail();
 
 
-        //24 May 2020 - Adding an index to increment the Habit count
 
-//        DocumentReference documentReference = mStore.collection("Habits").document(UserID);
-//
-//        documentReference.addSnapshotListener(new EventListener<DocumentSnapshot>() {
-//            @Override
-//            public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
-//                if(e != null) {
-//
-//                    Log.d("ACP", "Error Listening..."+e.toString());
-//                    return;
-//                }
-//
-//                int HabitListSize = Objects.requireNonNull(documentSnapshot.getData()).size();
-//
-//                if (HabitListSize > 0){
-//
-//                    habitNum ++;
-//
-//                }else {
-//                    habitNum = 1;
-//                }
-//            }
-//        });
+        //26May2020 - Logic to find id the document in the Firestore exists and is empty. If empty then set the habit Number to 1, else increment the habit number by 1 before putting the new record
+
+        DocumentReference documentReference = mStore.collection("Habits").document(UserID);
+
+        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                if(task.isSuccessful()){
+                    DocumentSnapshot document = task.getResult();
+
+                    assert document != null;
+                    if(document.exists()){
+                        Map<String, Object> map = document.getData();
+                        assert map != null;
+                        if(map.size() == 0){
+
+                            habitNum = 1;
+                            Log.d("ACP", "Inside zero map size. The map size is: "+map.size());
+                        }else{
+                            habitNum = habitNum+1;
+                            Log.d("ACP", "Inside non-zero map size. The map size is: "+map.size());
+                        }
+
+                    }
+                }
 
 
+            }
+        });
 
+        Log.d("ACP", "The Habit Number is: "+habitNum);
 
         final Map<String, Object> userHabit = new HashMap<>();
+        final Map<String, Object> userHabitDetail = new HashMap<>();
+
+        userHabitDetail.put(KEY_HABIT_NUMBER, habitNum);
+        userHabitDetail.put(KEY_HABIT_NAME, userHabitName );
+        userHabitDetail.put("CreatedOn: ", new Timestamp(new Date()) );
 
 
-
-            Log.d("ACP", "Habit Size is now 1: "+userHabit.size());
-            Log.d("ACP", "Habit Number is now1: "+ habitNum);
-
-
-        userHabit.put(KEY_HABIT_NAME+ habitNum, userHabitName);
-
+        userHabit.put(KEY_HABIT_DETAIL, userHabitDetail);
 
 
         mStore.collection("Habits").document(UserID).set(userHabit, SetOptions.merge())
@@ -178,7 +189,7 @@ public class SetAndTrackHabits extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(SetAndTrackHabits.this, "User HABIT Saved...", Toast.LENGTH_SHORT).show();
-                        Log.d("ACP", "User HABIT Saved for user..."+ userEmail + " Habit Name..." + userHabit.get(KEY_HABIT_NAME+ habitNum));
+                        Log.d("ACP", "User HABIT Saved for user..."+ userEmail + " Habit Name..." + userHabitDetail.get(KEY_HABIT_NAME));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -188,9 +199,6 @@ public class SetAndTrackHabits extends AppCompatActivity {
             }
         });
 
-//        habitNum = habitNum+1;
-        Log.d("ACP", "Habit Number is now2: "+ habitNum);
-        Log.d("ACP", "Habit Size is now2: "+userHabit.size());
 
     }
 }
