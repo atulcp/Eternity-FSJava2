@@ -46,7 +46,8 @@ public class SetAndTrackHabits extends AppCompatActivity {
     private EditText mHabitName;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
-    private int habitNum;
+
+    long habitNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +120,7 @@ public class SetAndTrackHabits extends AppCompatActivity {
 
         final String userHabitName  = mHabitName.getText().toString();
 
+
         // Perform Validations on the fields
 
         // Validation 1: Check if the Habit Name is blank
@@ -147,41 +149,35 @@ public class SetAndTrackHabits extends AppCompatActivity {
         documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
                 if(task.isSuccessful()){
                     DocumentSnapshot document = task.getResult();
-
-                    assert document != null;
                     if(document.exists()){
                         Map<String, Object> map = document.getData();
-                        assert map != null;
                         if(map.size() == 0){
-
                             habitNum = 1;
-                            Log.d("ACP", "Inside zero map size. The map size is: "+map.size());
-                        }else{
-                            habitNum = habitNum+1;
-                            Log.d("ACP", "Inside non-zero map size. The map size is: "+map.size());
+                            Log.d("ACP","Empty List");
                         }
-
+                        else{
+                            habitNum = habitNum + 1;
+                            Log.d("ACP", "List is not empty");
+                        }
                     }
                 }
-
-
             }
         });
 
-        Log.d("ACP", "The Habit Number is: "+habitNum);
+
+        Log.d("ACP", "The Habit Number is: "+ habitNum);
 
         final Map<String, Object> userHabit = new HashMap<>();
         final Map<String, Object> userHabitDetail = new HashMap<>();
 
-        userHabitDetail.put(KEY_HABIT_NUMBER, habitNum);
         userHabitDetail.put(KEY_HABIT_NAME, userHabitName );
         userHabitDetail.put("CreatedOn: ", new Timestamp(new Date()) );
 
-
+        userHabit.put(KEY_HABIT_NUMBER, habitNum);
         userHabit.put(KEY_HABIT_DETAIL, userHabitDetail);
+
 
 
         mStore.collection("Habits").document(UserID).set(userHabit, SetOptions.merge())
