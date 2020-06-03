@@ -41,36 +41,43 @@ public class SetAndTrackHabits extends AppCompatActivity {
     private static final String KEY_HABIT_NAME = "HabitName ";
     private static final String KEY_HABIT_NUMBER = "HabitNumber ";
     private static final String KEY_HABIT_DETAIL = "HabitDetail ";
+    private static final String KEY_HABIT_COUNT = "HabitNumberCount ";
 
     private TextView mFullName;
     private EditText mHabitName;
     private FirebaseAuth mAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore mStore = FirebaseFirestore.getInstance();
 
-    long habitNum;
+    // Check if the current user is logged in
+
+    final String UserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+    final String userEmail = mAuth.getCurrentUser().getEmail();
+
+    int habitNum =1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_and_track_habits);
 
-
         mFullName = findViewById(R.id.ProfileNameValue);
         mHabitName = findViewById(R.id.habitName);
 
-        String userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-        Log.d("ACP", "Entering Set Habit Screen For...."+mAuth.getCurrentUser().getEmail());
+        //String userID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+        Log.d("ACP", "Entering Set Habit Screen For...."+ Objects.requireNonNull(mAuth.getCurrentUser()).getEmail());
 
-        DocumentReference documentReference = mStore.collection("Users").document(userID);
+        DocumentReference documentReference = mStore.collection("Users").document(UserID);
 
         documentReference.addSnapshotListener(this, new EventListener<DocumentSnapshot>() {
             @Override
             public void onEvent(@Nullable DocumentSnapshot documentSnapshot, @Nullable FirebaseFirestoreException e) {
                 assert documentSnapshot != null;
                 mFullName.setText(documentSnapshot.getString(KEY_NAME));
-
             }
         });
+
+        checkAndUpdateHabitCounter();
+
     }
 
     // 19 May 2020 - Added the below code for showing a menu on the Main Activity Screen
@@ -135,49 +142,19 @@ public class SetAndTrackHabits extends AppCompatActivity {
             mHabitName.setError("Habit Name must be at least 3 characters");
         }
 
-        // Check if the current user is logged in and then save the Habit Name in the database
 
-        final String UserID = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
-        final String userEmail = mAuth.getCurrentUser().getEmail();
-
-
-
-        //26May2020 - Logic to find id the document in the Firestore exists and is empty. If empty then set the habit Number to 1, else increment the habit number by 1 before putting the new record
-
-        DocumentReference documentReference = mStore.collection("Habits").document(UserID);
-
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot document = task.getResult();
-                    if(document.exists()){
-                        Map<String, Object> map = document.getData();
-                        if(map.size() == 0){
-                            habitNum = 1;
-                            Log.d("ACP","Empty List");
-                        }
-                        else{
-                            habitNum = habitNum + 1;
-                            Log.d("ACP", "List is not empty");
-                        }
-                    }
-                }
-            }
-        });
-
-
-        Log.d("ACP", "The Habit Number is: "+ habitNum);
+        //checkAndUpdateHabitCounter();
+        Log.d("ACP", "The Habit Number is now: "+ habitNum);
 
         final Map<String, Object> userHabit = new HashMap<>();
         final Map<String, Object> userHabitDetail = new HashMap<>();
 
-        userHabitDetail.put(KEY_HABIT_NAME, userHabitName );
+        userHabitDetail.put(KEY_HABIT_NUMBER, habitNum);
+        userHabitDetail.put(KEY_HABIT_NAME + habitNum, userHabitName );
         userHabitDetail.put("CreatedOn: ", new Timestamp(new Date()) );
 
-        userHabit.put(KEY_HABIT_NUMBER, habitNum);
+        userHabit.put(KEY_HABIT_COUNT, habitNum);
         userHabit.put(KEY_HABIT_DETAIL, userHabitDetail);
-
 
 
         mStore.collection("Habits").document(UserID).set(userHabit, SetOptions.merge())
@@ -185,7 +162,8 @@ public class SetAndTrackHabits extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(SetAndTrackHabits.this, "User HABIT Saved...", Toast.LENGTH_SHORT).show();
-                        Log.d("ACP", "User HABIT Saved for user..."+ userEmail + " Habit Name..." + userHabitDetail.get(KEY_HABIT_NAME));
+                        Log.d("ACP", "User HABIT Saved for user..."+ userEmail + " Habit Name..." + userHabitDetail.get(KEY_HABIT_NAME + habitNum));
+                        checkAndUpdateHabitCounter();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -195,6 +173,53 @@ public class SetAndTrackHabits extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void checkAndUpdateHabitCounter() {
+
+        //03Jun2020 - Logic to find id the document in the Firestore exists and is empty. Get the total Habit count first.
+        // If the counter is zero, the set the habitNum to 1. Else increment the Habit Count by 1 and set the habitNum to the updated Habit Counter
+
+        DocumentReference HabitDocRef = mStore.collection("Habits").document(UserID);
+
+        HabitDocRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Log.d("ACP", "Inside HabitDocRef....On Success...");
+                if(!documentSnapshot.exists()){
+                    habitNum = 1;
+                    Log.d("ACP", "Inside HabitDocRef....If document doesn't exist..");
+                }else{
+                    int latestCounter = Integer.parseInt(Objects.requireNonNull(Objects.requireNonNull(documentSnapshot.getData()).get(KEY_HABIT_COUNT)).toString());
+                       habitNum = latestCounter + 1;
+                    Log.d("ACP", "Inside HabitDocRef....If document exists and is not null.." +habitNum);
+                }
+            }
+        });
+
+//        HabitDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//
+//                Log.d("ACP", "Inside HabitDocRef....");
+//                if(task.isSuccessful()){
+//                    DocumentSnapshot document = task.getResult();
+//                    Log.d("ACP", "Inside HabitDocRef....After document...");
+//                    if(document == null){
+//                        habitNum = 1;
+//                        Log.d("ACP", "Inside HabitDocRef....If document = null..");
+//                    }else {
+//
+//                        int latestCounter = Integer.parseInt(Objects.requireNonNull(Objects.requireNonNull(document.getData()).get(KEY_HABIT_COUNT)).toString());
+//                        habitNum = latestCounter + 1;
+//
+//                        Log.d("ACP", "Inside HabitDocRef....If document is not null.." +habitNum);
+//                    }
+//                }
+//
+//            }
+//        });
 
     }
 }
