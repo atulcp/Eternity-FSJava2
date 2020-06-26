@@ -28,46 +28,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setHabitButton" />
-
-    <Button
-        android:id="@+id/setHabitButton"
-        style="@android:style/Widget.Button"
-        android:layout_width="280dp"
-        android:layout_height="47dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="65dp"
-        android:background="#CDCC00"
-        android:clickable="true"
-        android:focusable="true"
-        android:fontFamily="@font/upcjl"
-        android:onClick="setHabit"
-        android:text="@string/SetHabitButtonText"
-        android:textAllCaps="false"
-        android:textColor="#000"
-        android:textSize="32sp"
-        android:typeface="serif"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/habitName" />
-
-    <EditText
-        android:id="@+id/habitName"
-        android:layout_width="289dp"
-        android:layout_height="58dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginEnd="50dp"
-        android:autofillHints=""
-        android:ems="10"
-        android:fontFamily="@font/upcjl"
-        android:hint="@string/HabitNameHintText"
-        android:inputType="textPersonName"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SetMyHabits" />
+        app:layout_constraintTop_toBottomOf="@+id/goToSetHabitsScreenButton" />
 
     <TextView
         android:id="@+id/SetMyHabits"
@@ -77,7 +38,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginEnd="150dp"
         android:fontFamily="@font/upcjl"
-        android:text="@string/setAHabitText"
+        android:text="@string/MyHabitsText"
         android:textColor="#000"
         android:textSize="26sp"
         android:textStyle="bold"
@@ -137,6 +98,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ProfilePic" />
+
+    <Button
+        android:id="@+id/goToSetHabitsScreenButton"
+        android:layout_width="283dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginEnd="65dp"
+        android:background="#CDCC00"
+        android:fontFamily="@font/upcjl"
+        android:onClick="goToSetHabits"
+        android:text="@string/goToSetHabitScreenButtonText"
+        android:textAllCaps="false"
+        android:textColor="#000"
+        android:textSize="32sp"
+        android:typeface="serif"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SetMyHabits" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

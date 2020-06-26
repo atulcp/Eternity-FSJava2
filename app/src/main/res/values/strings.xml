@@ -34,6 +34,9 @@
     <string name="ActionButtonSetAndTrackHabitText">Set and Track a Habit</string>
     <string name="MyHabitsText">My Habits</string>
     <string name="HabitNameHintText">Enter HABIT Name here</string>
-    <string name="SetHabitButtonText">Set Habit</string>
+    <string name="SetHabitButtonText">Set The Habit</string>
     <string name="MainPage">My Home</string>
+    <string name="viewHabitsButton">View Habits</string>
+    <string name="setAHabitText">Set A Habit</string>
+    <string name="goToSetHabitScreenButtonText">Set A Habit</string>
 </resources>
